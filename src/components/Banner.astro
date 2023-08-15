@@ -1,0 +1,19 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<section class="Banner w-full flex flex-col justify-center items-center">
+  <span class="text-3xl mb-[20px] font-bold italic leading-4 tracking-widest">{title}</span>
+  <h1 class="text-2xl md:text-5xl w-10/12 text-center ">{description}</h1>
+</section>
+
+<style>
+  .Banner {
+    height: 550px;
+  }
+</style>

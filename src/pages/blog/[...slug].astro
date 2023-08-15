@@ -1,20 +1,50 @@
 ---
-import { CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
 }
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<BaseLayout>
+  <BlogPost {...post.data}>
+    <Content class="content" />
+  </BlogPost>
+</BaseLayout>
+
+<style is:global>
+  .content h2 {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 23px;
+    margin: 20px 0px;
+  }
+
+  .astro-code {
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0px;
+  }
+
+  .prose :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .prose p {
+    font-size: 20px;
+    line-height: 2rem;
+    margin-bottom: 15px;
+  }
+</style>

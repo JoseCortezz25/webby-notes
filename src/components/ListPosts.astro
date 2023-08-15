@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Card from "./Card.astro";
+
+interface Props {
+  posts: CollectionEntry<"blog">[]
+}
+
+const { posts } = Astro.props;
+---
+{ posts ? 
+  posts.map((post) => (
+    <Card
+      url={post.slug}
+      image={post.data.heroImage}
+      title={post.data.title}
+      date={post.data.pubDate}
+      tags={post.data.tags}
+    />
+  ))
+  :
+  <p>No hay contenido</p>
+}
